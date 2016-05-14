@@ -76,4 +76,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # some other
-ex*.docx
+*ex*.docx
