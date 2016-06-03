@@ -40,6 +40,3 @@ main <- function(){
 		i = i+1	
 	}
 }
-
-
-
