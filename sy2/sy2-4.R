@@ -15,28 +15,43 @@ analysis <- function(n=15) {
 	# print(p)
 	if(any(p<0.05))
 	{
-		print(n)
+		# print(n)
 		return(n)
 	}
 	return(0)
 }
 # 先是在15的容量下，做多次检验，在增大样本容量直到发现差异
 main <- function(){
-	for(i in 1:10){
-		analysis()
+	record <- c()
+	for(i in 1:100){
+		if (analysis()){
+			record<-c(record,i)
+		}
 	}
+	cat("100次检查出")
+	cat(length(record))
+	cat("次\n")
 	print("-------")
 	# for(i in 1:10){
 	# 	analysis(20)
 	# }
 	# print("-------")
-	i = 16
-	while(TRUE)
-	{
-		x = analysis(i)
-		if(x){
-			break
+	record2 <- c()
+
+	for (j in 1:1000) {
+		i = 16
+		while(TRUE)
+		{
+			x = analysis(i)
+			if(x){
+				record2 <- c(record2,x)
+				break
+			}
+			i = i+1	
 		}
-		i = i+1	
 	}
+	# print(record2)
+
 }
+
+main()
