@@ -1,0 +1,25 @@
+> summary(data.aov)
+             Df Sum Sq Mean Sq F value Pr(>F)    
+A             3  599.3  199.76  85.582 <2e-16 ***
+B             3    9.1    3.03   1.298  0.277    
+Residuals   153  357.1    2.33                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+> tukey.add.test(X,A,B)
+
+Tukey's one df test for additivity 
+F = 0.0698603   Denom df = 152    p-value = 0.7918983
+
+
+
+
+> summary( data.aov2)
+             Df Sum Sq Mean Sq F value Pr(>F)    
+A             3  599.3  199.76  83.134 <2e-16 ***
+B             3    9.1    3.03   1.261  0.290    
+A:B           9   11.1    1.23   0.514  0.863    
+Residuals   144  346.0    2.40                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

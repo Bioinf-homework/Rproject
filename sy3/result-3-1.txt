@@ -1,0 +1,46 @@
+> bartlett.test(data$X, data$A)
+
+        Bartlett test of homogeneity of variances
+
+data:  data$X and data$A
+Bartlett's K-squared = 0.31541, df = 3, p-value = 0.9571
+
+
+> summary(data.aov)
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+A            3  38.67   12.89   10.23 5.18e-05 ***
+Residuals   36  45.37    1.26                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+> pair
+
+        Pairwise comparisons using t tests with pooled SD 
+
+data:  X and A 
+
+  1     2     3    
+2 1.000 -     -    
+3 0.082 0.013 -    
+4 0.039 0.215 2e-05
+
+P value adjustment method: bonferroni 
+
+
+> x1 <- rnorm(300,10,1)
+> x2 <- rnorm(300,10.2,1)
+> 
+> t.test(x1,x2)
+
+        Welch Two Sample t-test
+
+data:  x1 and x2
+t = -3.0503, df = 597.96, p-value = 0.002387
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.39393238 -0.08534908
+sample estimates:
+mean of x mean of y 
+ 9.932747 10.172388 
