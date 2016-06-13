@@ -1,5 +1,5 @@
-# setwd("D:/Programs/Rproject/sy3")
-setwd("/media/tmn07/3AD6217DD6213A91/Programs/Rproject/sy3")
+setwd("D:/Programs/Rproject/sy3")
+# setwd("/media/tmn07/3AD6217DD6213A91/Programs/Rproject/sy3")
 
 # x1 <- rnorm(10,10,1)
 # x2 <- rnorm(10,10.2,1)
@@ -35,29 +35,38 @@ x2 <- rnorm(300,10.2,1)
 
 t.test(x1,x2)
 
-# 
+
+
+
+# 额，目前要每组样本容量一样大
 myaov <- function(X,A){
+  # 处理A带的信息
+  len = length(A)
+  les = length(levels(A))
+
+  # 这两步，很难想到。。所以写起来很痛苦。。。
+  func <- function(sp){
+    return(mean(X[sp]))
+  }
+  sp = split(1:len,A)
+  am <- lapply(sp,func)
+
   m <- mean(X)
-  a1 <- X[1:10]
-  a2 <- X[11:20]
-  a3 <- X[21:30]
-  a4 <- X[31:40]
+  # 总
   SSt <- sum((X-m)**2)
   vt <- length(X)-1
-  a1m = mean(a1)
-  a2m = mean(a2)
-  a3m = mean(a3)
-  a4m = mean(a4)
-  am <- c(a1m,a2m,a3m,a4m)
-  SSj <- 10*sum((am - mean(am))**2)
-  vj <- length(levels(A))-1
+  # 组间
+  SSj <-  (len/les) *sum((as.numeric(am) - m)**2)
+  vj <- les-1
   Mj <- SSj/vj
+  # 组内
   SSn <- SSt - SSj
   vn <- vt-vj
   Mn <- SSn/vn
+  # 计算统计量
   F <- Mj/Mn
-  
   p = pf(F,vj,vn)
+  # 输出
   cat("F=")
   cat(F)
   cat("\nP=")
