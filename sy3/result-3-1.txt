@@ -44,3 +44,9 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of x mean of y 
  9.932747 10.172388 
+
+
+
+> myaov(X,A)
+F=10.2273
+P=0.9999482
