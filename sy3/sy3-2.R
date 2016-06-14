@@ -41,7 +41,8 @@ data = data.frame(X,A,B)
 # data.aov2 <- aov(X~A+B+A:B,data)
 data.aov <- aov(X~A*B,data)
 summary(data.aov)
-
+data.aov2 <- aov(X~A+B,data)
+summary(data.aov2)
 
 # 无重复实验的，不能做相互作用的方差分析？
 
@@ -112,3 +113,69 @@ data = data.frame(X,A,B)
 
 data.aov <- aov(X~A*B,data)
 summary(data.aov)
+
+
+myaov <- function(X,A,B){
+   # 处理A带的信息
+  len1 = length(A)
+  les1 = length(levels(A))
+
+  len2 = length(B)
+  les2 = length(levels(B))
+  allevel = les2*les1
+
+  n = (length(X)/les2)/les1
+  m = mean(X)
+
+  # 这两步，很难想到。。所以写起来很痛苦。。。
+  func <- function(sp){
+    return(mean(X[sp]))
+  }
+  sp = split(1:len1,A)
+  am = lapply(sp,func)
+
+  sp2 = split(1:len2,B)
+  bm = lapply(sp2,func)
+
+  SSt = sum((X-m)**2)
+  vt = length(X)-1
+  # Mt = SSt/vt
+
+  sum = 0
+  for (j in 1:(allevel-1)) {
+  	count = c()
+	for (i in 1:n) {
+		count = c(count,X[j*n+i])
+	}
+	sum = sum + (mean(count)-m)**2
+  }
+  SStreat = sum*n
+  vtreat = les1*les2-1
+
+  SSa = les2*n*sum((as.numeric(am) - m)**2)
+  va = les1-1
+  Ma = SSa/va
+
+  SSb = les1*n*sum((as.numeric(bm) - m)**2)
+  vb = les2-1
+  Mb = SSb/vb
+
+  SSab = SStreat - SSb -SSa
+  vab = va*vb
+  Mab = SSab/vab
+
+  SSe = SSt - SStreat
+  ve = allevel*(n-1)
+  Me = SSe/ve
+
+  data = list()
+  data$Fa = Ma / Me
+  data$Fb = Mb / Me
+  data$Fab = Mab / Me
+  data$pa = 1-pf(Fa,va,ve)
+  data$pb = 1-pf(Fb,vb,ve)
+  data$pab = 1-pf(Fab,vab,ve)
+  return(data)
+}
+
+print(myaov(X,A,B))

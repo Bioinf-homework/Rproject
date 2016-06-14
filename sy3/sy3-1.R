@@ -70,5 +70,5 @@ myaov <- function(X,A){
   cat("F=")
   cat(F)
   cat("\nP=")
-  cat(p)
+  cat(1-p)
 }

@@ -49,4 +49,4 @@ mean of x mean of y
 
 > myaov(X,A)
 F=10.2273
-P=0.9999482
+P=5.18e-05
