@@ -160,6 +160,7 @@ myaov <- function(X,A,B){
   vb = les2-1
   Mb = SSb/vb
 
+
   SSab = SStreat - SSb -SSa
   vab = va*vb
   Mab = SSab/vab
@@ -172,9 +173,9 @@ myaov <- function(X,A,B){
   data$Fa = Ma / Me
   data$Fb = Mb / Me
   data$Fab = Mab / Me
-  data$pa = 1-pf(Fa,va,ve)
-  data$pb = 1-pf(Fb,vb,ve)
-  data$pab = 1-pf(Fab,vab,ve)
+  data$pa = 1-pf(data$Fa,va,ve)
+  data$pb = 1-pf(data$Fb,vb,ve)
+  data$pab = 1-pf(data$Fab,vab,ve)
   return(data)
 }
 

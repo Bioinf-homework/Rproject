@@ -33,15 +33,18 @@ for(i in 1:len){
 	data_frame = data.frame(tt,A)
 	# bartlett.test(data$X, data$A)
 	data_frame.aov = aov(tt~A,data_frame)
-	summary(data_frame.aov)
-	pair = pairwise.t.test(tt,A,p.adjust = "bonf")
-
-	for(j in 1:3){
-		if(pair$p.value[j,1] < 0.05) {
-			xx$id = c(xx$id,i)
-			xx$treatment = c(xx$treatment,j)
+	y = summary(data_frame.aov)
+	if(y[[1]][[5]][[1]] < 0.05)
+	{
+		pair = pairwise.t.test(tt,A,p.adjust = "bonf")
+		for(j in 1:3){
+			if(pair$p.value[j,1] < 0.05) {
+				xx$id = c(xx$id,i)
+				xx$treatment = c(xx$treatment,j)
+			}
 		}
 	}
+
 }
 
 setwd("../sy3")
