@@ -6,7 +6,7 @@ plot(level,main='散点图',xlab='年龄(单位：年)',ylab='端粒长度（单
 
 
 # 点估计
-reg <- lm(y~1+x)
+reg <- lm(y~1+x,data=level)
 # summary(reg)
 a = reg$coefficients[1]
 b = reg$coefficients[2]
