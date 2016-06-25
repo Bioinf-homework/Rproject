@@ -1,18 +1,19 @@
 setwd("D:/this term/生统/实验/4")
 
-x = read.table("step.data.txt")
+data = read.table("step.data.txt")
+
+data$d1 = data$x1*data$x2
+data$d2 = data$x1*data$x3
+data$d3 = data$x2*data$x3
+data$d4 = data$x1*data$x2*data$x3
+data$s1 = data$x1^2
+data$s2 = data$x2^2
+data$s3 = data$x3^2
+reg = lm(y~x1+x2+x3+d1+d2+d3+d4+s1+s2+s3,data = data)
 
 
-y = x$y
-x1 = x$x1
-x2 = x$x2
-x3 = x$x3
-level<-data.frame(y, x1, x2, x3)
+summary(reg)
 
-lm.reg<-lm(y~x1+x2+x3+x1*x2+x1*x3+x2*x3+x1**2+x2**2+x3**2, data=level)
-# lm.reg<-lm(y~x1+x2+x3+x1*x2+x1**2+x2**2+x3**2, data=level)
-summary(lm.reg)
-
-tstep<-step(lm.reg)
+tstep<-step(reg)
 
 summary(tstep)
